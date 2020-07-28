@@ -1,0 +1,27 @@
+{
+    "name": "maggz69/emailchecker",
+    "description": "An email checker and verifier for laravel",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "6.5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "EmailChecker\\": "src",
+            "EmailChecker\\Pipeline":"src\\Pipeline"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pius Gumo",
+            "email": "swagzmania@gmail.com"
+        }
+    ],
+    "extra":{
+        "laravel":{
+            "providers":[
+                "EmailChecker\\EmailCheckerServiceProvider"
+            ]
+        }
+    }
+}
