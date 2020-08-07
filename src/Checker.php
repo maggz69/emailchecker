@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace EmailChecker;
 
@@ -12,6 +12,7 @@ class Checker{
      */
 
      public $guzzleClient;
+     public $lastResponse = null;
 
      public function __construct()
      {
@@ -31,6 +32,10 @@ class Checker{
          }else{
             return $response;
          }
+     }
+
+     public function lastResponse(){
+         return $this->lastResponse;
      }
 
 }

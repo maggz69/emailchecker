@@ -5,8 +5,6 @@ namespace EmailChecker\Pipeline;
 class Request{
 
     private $config;
-    private $email;
-    private $response;
     private $client;
 
     public function __construct($config,$client){
@@ -26,8 +24,18 @@ class Request{
             'key'=>config('emailchecker.key',env('RAPID_API_KEY',null)),
             'url'=>config('emailchecker.url','https://email-checker.p.rapidapi.com/verify/v1'),
         ];
-        
+
         $this->config = $config;
+
+        $this->checkConfigValidity();
+    }
+
+    private function checkConfigValidity(){
+        foreach ($this->config as $key=>$value){
+            if(!isset($value)){
+                throw new \Exception("The $key in the config is empty. Have you published the vendor config file? Is there a key in .env?");
+            }
+        }
     }
 
     private function sendRequestToRapidAPI($email){
@@ -39,17 +47,17 @@ class Request{
                 ]
              ]
           );
-       
+
         $result = $this->validateResponse($response);
-       
-       $this->response = $result;
+
+       $response1 = $result;
 
        return json_decode(json_encode($result),true);
     }
 
     public function checkEmailExistence($email){
-        $this->email = $email;
-        return $this->sendRequestToRapidAPI($this->email);
+        $email1 = $email;
+        return $this->sendRequestToRapidAPI($email1);
     }
 
     private function validateResponse($response){
